@@ -3,8 +3,8 @@ library(lubridate)
 library(httr) 
 
 #API keys assigned by PurpleAir support
-read_key <- "Read key "
-write_key <- "Write key"
+read_key <- "Read Key "
+write_key <- "Write Key"
 
 #end date and start date (API format is UNIX GMT)
 start_date <- as.POSIXct("2020-01-01")
