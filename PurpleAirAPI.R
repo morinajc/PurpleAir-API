@@ -3,7 +3,7 @@ library(lubridate)
 library(httr) 
 
 # API keys assigned by PurpleAir support
-read_key <- "Read Key "
+read_key <- "Read Key"
 write_key <- "Write Key"
 
 # End date and start date (API format is UNIX GMT)
@@ -50,5 +50,6 @@ for (i in 1:length(listfile)){
     rm(list = ls(pattern = "Test"))
   }
 }
+
 # Save dataframe as csv file
 write.csv(Data, "File Name.csv")
