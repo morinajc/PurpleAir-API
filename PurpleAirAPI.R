@@ -32,27 +32,26 @@ while(start_date <= end_date) {
   Sys.sleep(60)
 }
 
-# Merging files
+# Merge files
 listfile <- list.files("/path/to/directory", pattern = "txt",full.names = T, recursive = TRUE)
 
 # Inspect list
 head(listfile)
 
-# Combined all the text files in listfile and store in dataframe 'Data'
+# Combine files into df
 for (i in 1:length(listfile)){
   if(i==1){
     assign(paste0("Data"), read.table(listfile[i],header = TRUE, sep = ","))
   }
   
   if(!i==1){
-    
     assign(paste0("Test",i), read.table(listfile[i],header = TRUE, sep = ","))
     Data <- rbind(Data,get(paste0("Test",i)))
     rm(list = ls(pattern = "Test"))
   }
 }
 
-# Convert the values stored in time_stamp from UNIX to date
+# Create new date column with the value of the time_stamp column (UNIX)
 Data$Date <- as.POSIXct(as.numeric(Data$time_stamp), origin = '1970-01-01', tz = 'GMT')
 
 # Convert timezone from GMT to EST
