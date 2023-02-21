@@ -35,6 +35,7 @@ while(start_date <= end_date) {
 # Merging files
 listfile <- list.files("/path/to/directory", pattern = "txt",full.names = T, recursive = TRUE)
 
+# Inspect list
 head(listfile)
 
 # Combined all the text files in listfile and store in dataframe 'Data'
@@ -51,5 +52,11 @@ for (i in 1:length(listfile)){
   }
 }
 
-# Save dataframe as csv file
+# Convert the values stored in time_stamp from UNIX to date
+Data$Date <- as.POSIXct(as.numeric(Data$time_stamp), origin = '1970-01-01', tz = 'GMT')
+
+# Convert timezone from GMT to EST
+attr(Data$Date, 'tzone') = 'EST'
+
+# Save file
 write.csv(Data, "File Name.csv")
