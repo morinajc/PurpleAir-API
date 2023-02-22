@@ -1,2 +1,3 @@
-# Purple-Air-API
-Retrieve sensor data from PurpleAir API
+# PurpleAir API
+
+This code will retrieve sensor data from PurpleAir API. The API will only allow a maximum of 14 days worth of hourly data in one request, and thus multiple request must be sent in order to collect data over longer temporal perdiod than 2 weeks. This first part of this code will generate text files for each two-week period. The second part of this code will then combine all of these text files into one file, and the third part of this code will quickly plot annual data from a sensor to easily assess temporal trends in the pollutant of interest. In this case, the pollutant is PM2.5.
