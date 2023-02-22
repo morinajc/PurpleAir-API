@@ -1,7 +1,11 @@
+# Load packages
 library(readr) 
 library(lubridate) 
-library(httr) 
+library(httr)
+library(openair)
+library(dplyr)
 
+#####--Retrieve data from PurpleAir API--####
 # API keys assigned by PurpleAir support
 read_key <- "Read Key"
 write_key <- "Write Key"
@@ -28,10 +32,11 @@ while(start_date <= end_date) {
   writeBin(data, paste("sensorindex",start_timestamp,end_timestamp,".txt", sep="_"))
   
   start_date <- end_period + 1
-  flush.console() #this makes sys.sleep work in a loop
+  flush.console() # This makes sys.sleep work in a loop
   Sys.sleep(60)
 }
 
+#####--Combining files into one csv or df--####
 # Merge files
 listfile <- list.files("/path/to/directory", pattern = "txt",full.names = T, recursive = TRUE)
 
@@ -52,10 +57,39 @@ for (i in 1:length(listfile)){
 }
 
 # Create new date column with the value of the time_stamp column (UNIX)
-Data$Date <- as.POSIXct(as.numeric(Data$time_stamp), origin = '1970-01-01', tz = 'GMT')
+Data$date <- as.POSIXct(as.numeric(Data$time_stamp), origin = '1970-01-01', tz = 'GMT')
 
 # Convert timezone from GMT to EST
-attr(Data$Date, 'tzone') = 'EST'
+attr(Data$date, 'tzone') = 'EST'
 
-# Save file
+# Save df to csv
 write.csv(Data, "File Name.csv")
+
+#####--Plot data using openair package--####
+# Rename and create new columns, this example uses the sensor from Vasen
+Vasen <- Data
+Vasen$year <- year(Vasen$Date)
+Vasen$hour <- hour(Vasen$Date)
+
+# The "date" column Needs to be lowercase, use below code if you need to change
+# Vasen <- Vasen %>% rename("date" = "Date")
+
+# Select by year, save as numeric, then graph using openair package to visualize temporal trends
+# 2020
+V.2020 <-Vasen[Vasen$year=="2020",]
+V.2020$pm2.5_atm_b <- as.numeric(V.2020$pm2.5_atm_b)
+V.2020$pm2.5_atm_a <- as.numeric(V.2020$pm2.5_atm_a)
+Vas_2020_graph <-timeVariation(V.2020,pollutant = c("pm2.5_atm_a","pm2.5_atm_b"), ylab = "pm25 (ug/m3)")
+
+# 2021
+V.2021 <-Vasen[Vasen$year=="2021",]
+V.2021$pm2.5_atm_b <- as.numeric(V.2021$pm2.5_atm_b)
+V.2021$pm2.5_atm_a <- as.numeric(V.2021$pm2.5_atm_a)
+Vas_2021_graph <-timeVariation(V.2021,pollutant = c("pm2.5_atm_a","pm2.5_atm_b"), ylab = "pm25 (ug/m3)")
+
+# 2022
+V.2022 <-Vasen[Vasen$year=="2022",]
+V.2022$pm2.5_atm_b <- as.numeric(V.2022$pm2.5_atm_b)
+V.2022$pm2.5_atm_a <- as.numeric(V.2022$pm2.5_atm_a)
+Vas_2022_graph <-timeVariation(V.2022,pollutant = c("pm2.5_atm_a","pm2.5_atm_b"), ylab = "pm25 (ug/m3)")
+
