@@ -15,5 +15,5 @@ The third part of this code will quickly plot annual data from a sensor to easil
 Alternative approachs can be used to download data from the PurpleAir API. PurpleAir has a guide on making API calls using cURL: https://community.purpleair.com/t/making-api-calls-with-the-purpleair-api/180. A quick way to see the current status of a sensor, or to get its GPS coordinates is to run the following code: 
 
 ```
-curl -X GET "https://api.purpleair.com/v1/sensors/sensorindexID" -H "X-API-Key: Read-Key-Here"
+curl -X GET "https://api.purpleair.com/v1/sensors/SensorIndexID" -H "X-API-Key: Read-Key-Here"
 ```
