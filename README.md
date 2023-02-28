@@ -1,6 +1,6 @@
 # Retrieving Data From PurpleAir
 
-This code is divided into three sections and will retrieve sensor data from PurpleAir API, combine the sensor files, and graph basic temporal scales. First, you will need to contact the PurpleAir support team to receive API keys (contact@purpleair.com). 
+This code is divided into three sections and will retrieve sensor data from PurpleAir API, combine the sensor files, and graph basic temporal trends. First, you will need to contact the PurpleAir support team to receive API keys (contact@purpleair.com). 
 
 ## 1. Download data from PurpleAir API
 This first part of this code will generate text files for each two-week period. The API will only allow a maximum of 14 days of hourly data in one request, and thus multiple requests must be made in order to collect data over temporal periods greater than 2 weeks. In addition, a request to pull data can only be performed once every minute. This will generate a .txt file for every 14 day period. You can customize which data fields you want to request by adding them to the URL section of the code, the list of parameters can be found here: https://api.purpleair.com. 
