@@ -1,4 +1,4 @@
-# Retrieving data from the PurpleAir API
+# Retrieving Data From The PurpleAir API
 
 This code is divided into three sections and will retrieve sensor data from PurpleAir API, combine the sensor files, and graph basic temporal scales. First, you will need to contact the PurpleAir support team to receive API keys (contact@purpleair.com). 
 
