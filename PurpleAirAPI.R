@@ -25,9 +25,9 @@ while(start_date <= end_date) {
   url <- paste0("https://api.purpleair.com/v1/sensors/sensorindex/history/csv?start_timestamp=", start_timestamp, "&end_timestamp=", end_timestamp, "&average=60&fields=pm2.5_cf_1_a%2C%20pm2.5_cf_1_b%2Cpm2.5_atm_a%2C%20pm2.5_atm_b%2Cpm2.5_alt_a%2Cpm2.5_alt_b%2Chumidity%2Ctemperature%2Cpressure%2Cuptime%2Crssi%2Cpa_latency%2Cmemory")
   
   # Send API request and write to text file
-  data <- GET(url,add_headers('X-API-Key'=read_key))
+  data <- GET(url,add_headers('X-API-Key' = read_key))
   data <- content(data, "raw")
-  writeBin(data, paste("sensorindex",start_timestamp,end_timestamp,".txt", sep="_"))
+  writeBin(data, paste("sensorindex",start_timestamp,end_timestamp,".txt", sep = "_"))
   
   start_date <- end_period + 1
   flush.console() # This makes sys.sleep work in a loop
@@ -43,7 +43,7 @@ head(listfile)
 
 # Combine files into df
 for (i in 1:length(listfile)){
-  if(i==1){
+  if(i == 1){
     assign(paste0("Data"), read.table(listfile[i],header = TRUE, sep = ","))
   }
   
